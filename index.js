@@ -102,7 +102,14 @@ function toRunCommand (inspectObj, name) {
   if (hostcfg.PublishAllPorts) rc = rc + ' -P'
   if (hostcfg.NetworkMode && hostcfg.NetworkMode !== 'default') {
     rc = append(rc, '--net', hostcfg.NetworkMode)
+  } else if (inspectObj.NetworkSettings.Networks) {
+    Object.keys(inspectObj.NetworkSettings.Networks).forEach((k) => {
+      if (k !== 'bridge') {
+        rc = append(rc, '--net', k)
+      }
+    })
   }
+
   if (hostcfg.RestartPolicy && hostcfg.RestartPolicy.Name) {
     rc = append(rc, '--restart', hostcfg.RestartPolicy, (policy) => {
       return policy.Name === 'on-failure' ? policy.Name + ':' + policy.MaximumRetryCount : policy.Name
