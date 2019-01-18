@@ -9,6 +9,7 @@ COPY package.json /workdir
 RUN npm install 
 COPY cli.js /workdir
 COPY index.js /workdir
+COPY test/ /workdir/test
 
 RUN npm run-script pretest
 RUN npm run-script test
