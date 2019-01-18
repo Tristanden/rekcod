@@ -109,6 +109,10 @@ function toRunCommand (inspectObj, name) {
       }
     })
   }
+  if (hostcfg.LogConfig) {
+    rc = append(rc, '--log-driver', hostcfg.LogConfig.Type)
+    rc = appendAllKeyValues(rc, '--log-opt', hostcfg.LogConfig.Config)
+  }
 
   if (hostcfg.RestartPolicy && hostcfg.RestartPolicy.Name) {
     rc = append(rc, '--restart', hostcfg.RestartPolicy, (policy) => {
@@ -131,6 +135,13 @@ function toRunCommand (inspectObj, name) {
   if (cfg.Cmd) rc = appendJoinedArray(rc, null, cfg.Cmd, ' ')
 
   return rc
+}
+
+function appendAllKeyValues (str, opt, jsonObject) {
+  Object.keys(jsonObject).forEach((key) => {
+    str = append(str, opt, key + '=' + jsonObject[key])
+  })
+  return str
 }
 
 function appendConfigBooleans (str, cfg) {

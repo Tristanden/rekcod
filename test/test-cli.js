@@ -29,6 +29,7 @@ const expectedOneTwo = '\n' +
   '--link project_postgres_1:postgres --link project_rrservice_1:project_rrservice_1 ' +
   '-P ' +
   '--net host ' +
+  '--log-driver json-file ' +
   '--restart on-failure:5 ' +
   '--add-host xyz:1.2.3.4 --add-host abc:5.6.7.8 ' +
   '-h 9c397236341e ' +
@@ -45,6 +46,7 @@ const expectedOneTwo = '\n' +
   'docker run ' +
   '--name hello ' +
   '--volumes-from admiring_brown --volumes-from silly_jang ' +
+  '--log-driver json-file --log-opt max-file=5 --log-opt max-size=10m ' +
   '--restart no ' +
   '-h 46d567b2ef86 ' +
   '-e \'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\' ' +

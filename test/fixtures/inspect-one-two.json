@@ -253,7 +253,10 @@
       "ContainerIDFile": "",
       "LogConfig": {
         "Type": "json-file",
-        "Config": {}
+        "Config": {
+          "max-file": "5",
+          "max-size": "10m"
+        }
       },
       "NetworkMode": "default",
       "PortBindings": {},
